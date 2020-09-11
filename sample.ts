@@ -1,21 +1,18 @@
-import { Constructor, Match } from './src'
+import { Constructor, Match, Product } from './src'
 
-interface Dog {
+interface Dog extends Product<"Dog"> {
   name: string
   age: number
-  __type: "Dog"
 }
 
-interface Cat {
+interface Cat extends Product<"Cat"> {
   name: string
   age: number
-  __type: "Cat"
 }
 
-interface Horse {
+interface Horse extends Product<"Horse"> {
   title: string,
-  deathDate: string,
-  __type: "Horse"
+  deathDate: string
 }
 
 type Animal = Cat | Dog | Horse
@@ -37,14 +34,6 @@ const cats = animals.filter(matchAnimal({
   Cat: () => true,
   _: () => false
 }))
-
-const animalNames = animals
-.filter(matchAnimal({
-  Horse: (horse: Horse) => false,
-  _: () => true
-}))
-.map(catOrDog => catOrDog as Cat | Dog)
-.map(catOrDog => catOrDog.name)
 
 const horses = animals
 .map(matchAnimal({

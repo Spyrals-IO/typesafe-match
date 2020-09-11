@@ -5,14 +5,12 @@ export function transformer(program: ts.Program) {
     const typeChecker = program.getTypeChecker()
 
     const visitor: ts.Visitor = (node: ts.Node) => {
-      if(ts.isCallExpression(node) && !!node.typeArguments && node.typeArguments.length === 1) {
+      if(ts.isCallExpression(node) && !!node.typeArguments && node.typeArguments.length === 1 && node.expression.getText(sf) === 'Constructor') {
         const [typeNode] = node.typeArguments
         const type = typeChecker.getTypeFromTypeNode(typeNode)
 
-        if(node.expression.getText(sf) === 'Constructor') {
-          const properties = type.getApparentProperties().filter(symbol => symbol.name !== "__type")
-          return generateConstructorLambda(properties, type.symbol.name)
-        }
+        const properties = type.getApparentProperties().filter(symbol => symbol.name !== "__type")
+        return generateConstructorLambda(properties, type.symbol.name)
       }
 
       return ts.visitEachChild(node, visitor, ctx)
