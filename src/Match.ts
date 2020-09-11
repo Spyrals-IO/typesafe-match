@@ -29,7 +29,7 @@ type __Match2<
   Sub1 extends {__type: string},
   Sub2 extends {__type: string}
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
   NamedMatch<Sub1, Return> &
   NamedMatch<Sub2, Return>
 ) => (t: T) => Return
@@ -40,7 +40,7 @@ type __Match3<
   Sub2 extends {__type: string},
   Sub3 extends {__type: string}
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> &
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return>
@@ -53,7 +53,7 @@ type __Match4<
  Sub3 extends {__type: string},
  Sub4 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> &
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -69,7 +69,7 @@ type __Match5<
   Sub4 extends {__type: string},
   Sub5 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> &
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -86,7 +86,7 @@ type __Match6<
   Sub5 extends {__type: string},
   Sub6 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> &
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -105,7 +105,7 @@ type __Match7<
   Sub6 extends {__type: string},
   Sub7 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> &
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -127,7 +127,7 @@ type __Match8<
   Sub7 extends {__type: string},
   Sub8 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -150,7 +150,7 @@ type __Match9<
   Sub8 extends {__type: string},
   Sub9 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -175,7 +175,7 @@ type __Match10<
   Sub9 extends {__type: string},
   Sub10 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -202,7 +202,7 @@ type __Match11<
   Sub10 extends {__type: string},
   Sub11 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -231,7 +231,7 @@ type __Match12<
   Sub11 extends {__type: string},
   Sub12 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -262,7 +262,7 @@ type __Match13<
   Sub12 extends {__type: string},
   Sub13 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -295,7 +295,7 @@ type __Match14<
   Sub13 extends {__type: string},
   Sub14 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -330,7 +330,7 @@ type __Match15<
   Sub14 extends {__type: string},
   Sub15 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -367,7 +367,7 @@ type __Match16<
   Sub15 extends {__type: string},
   Sub16 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -406,7 +406,7 @@ type __Match17<
   Sub16 extends {__type: string},
   Sub17 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -447,7 +447,7 @@ type __Match18<
   Sub17 extends {__type: string},
   Sub18 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -490,7 +490,7 @@ type __Match19<
   Sub18 extends {__type: string},
   Sub19 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -535,7 +535,7 @@ type __Match20<
   Sub19 extends {__type: string},
   Sub20 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -582,7 +582,7 @@ type __Match21<
   Sub20 extends {__type: string},
   Sub21 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -631,7 +631,7 @@ type __Match22<
   Sub21 extends {__type: string},
   Sub22 extends {__type: string},
 > = <Return>(
-  matcher: UnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
+  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> |
     NamedMatch<Sub1, Return> & 
     NamedMatch<Sub2, Return> &
     NamedMatch<Sub3, Return> &
@@ -656,12 +656,10 @@ type __Match22<
     NamedMatch<Sub22, Return>
 ) => (t: T) => Return
 
+type MatchesWithUnderscore<All extends {__type: string}, Return> = UnnamedMatch<All, Return> & NamedMatch<All, Return>
 
-type MatchesWithUnderscore<All extends {__type: string}, Return> =
-  UnamedMatch<All, Return> & NamedMatch<All, Return>
-
-type UnamedMatch<Param, Return> = 
-  { [key in "_"]: (match: Param) => Return }
+type UnnamedMatch<Param, Return> = 
+  { _: (match: Param) => Return }
 
 type NamedMatch<Param extends {__type: string}, Return> =
   { [key in Param["__type"]]: (match: Param) => Return }

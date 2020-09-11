@@ -34,7 +34,6 @@ const cats = animals.filter(matchAnimal({
   Cat: () => true,
   _: () => false
 }))
-
 const horses = animals
 .map(matchAnimal({
   Horse: (horse: Horse) => horse.title,

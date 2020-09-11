@@ -1,14 +1,12 @@
 import ts from 'typescript'
 
 export function transformer(program: ts.Program) {
-  function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile) {
-    const typeChecker = program.getTypeChecker()
-
+  const typeChecker = program.getTypeChecker()
+  return (ctx: ts.TransformationContext): ts.Transformer<ts.SourceFile> => (sf: ts.SourceFile) => {
     const visitor: ts.Visitor = (node: ts.Node) => {
       if(ts.isCallExpression(node) && !!node.typeArguments && node.typeArguments.length === 1 && node.expression.getText(sf) === 'Constructor') {
         const [typeNode] = node.typeArguments
         const type = typeChecker.getTypeFromTypeNode(typeNode)
-
         const properties = type.getApparentProperties().filter(symbol => symbol.name !== "__type")
         return generateConstructorLambda(properties, type.symbol.name)
       }
@@ -16,11 +14,7 @@ export function transformer(program: ts.Program) {
       return ts.visitEachChild(node, visitor, ctx)
     }
 
-    return visitor
-  }
-
-  return (ctx: ts.TransformationContext): ts.Transformer<ts.SourceFile> => {
-    return (sf: ts.SourceFile) => ts.visitNode(sf, visitor(ctx, sf))
+    return ts.visitNode(sf, visitor)
   }
 }
 
