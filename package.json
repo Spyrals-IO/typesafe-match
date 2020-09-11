@@ -12,15 +12,17 @@
   "author": "Merlin Goulet <merlin.goulet@live.fr>",
   "license": "MIT",
   "devDependencies": {
-    "ts-loader": "^7.0.5",
-    "ts-node": "^8.10.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
     "typescript": "^3.7.4",
     "ts-toolbelt": "^6.9.4",
-    "ttypescript": "^1.5.9"
+    "ttypescript": "^1.5.9",
+    "ts-patch": "^1.2.4",
+    "ts-node": "^9.0.0"
   },
-  "dependencies": {
-    "ts-patch": "^1.2.4"
+  "optionalDependencies": {
+    "typescript": "^3.7.4",
+    "ts-toolbelt": "^6.9.4",
+    "ttypescript": "^1.5.9",
+    "ts-patch": "^1.2.4",
+    "ts-node": "^9.0.0"
   }
 }
