@@ -5,7 +5,8 @@
   "description": "Use product type easily",
   "scripts": {
     "install": "ts-patch install",
-    "start": "ttsc && node ./sample.js",
+    "compile": "ttsc",
+    "start": "ttsc && node ./dist/sample.js",
     "test": "mocha 'test.specs.ts' --require ts-node/register"
   },
   "author": "Merlin Goulet <merlin.goulet@live.fr>",
