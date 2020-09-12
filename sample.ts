@@ -40,6 +40,15 @@ const horses = animals
   _: () => "Nobody"
 }))
 
+const oneAnimal = animals[0]
+const nameOrTitle = matchAnimal({
+  Horse: (horse: Horse) => horse.title,
+  Cat: (cat: Cat) => cat.name,
+  Dog: (dog: Dog) => dog.name
+})(oneAnimal)
+
 console.log("Good boys : ", dogs)
 console.log("My only friends : ", cats)
 console.log("Pedant pedestrians : ", horses)
+
+console.log("choosen one : ", nameOrTitle)

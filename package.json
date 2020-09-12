@@ -1,8 +1,8 @@
 {
-  "name": "ts-adt",
-  "version": "0.0.1",
+  "name": "ts-match",
+  "version": "1.0.0",
   "main": "./src/index.ts",
-  "description": "Use product type easily",
+  "description": "Match on algrebraic data types",
   "scripts": {
     "install": "ts-patch install",
     "compile": "ttsc",
@@ -12,17 +12,17 @@
   "author": "Merlin Goulet <merlin.goulet@live.fr>",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^3.7.4",
+    "typescript": "^3.0.0",
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9",
     "ts-patch": "^1.2.4",
-    "ts-node": "^9.0.0"
+    "ts-node": "^8.0.0"
   },
   "optionalDependencies": {
-    "typescript": "^3.7.4",
+    "typescript": "^3.0.0",
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9",
     "ts-patch": "^1.2.4",
-    "ts-node": "^9.0.0"
+    "ts-node": "^8.0.0"
   }
 }
