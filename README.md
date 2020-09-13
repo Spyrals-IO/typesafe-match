@@ -24,9 +24,9 @@ interface Cat {
 type Animal = Cat | Dog
 ```
 
-`Animal` is our ADT while `Dog` and `Cat` are it's components.
+`Animal` is our ADT while `Dog` and `Cat` are its components.
 
-Before going any further, each interface should extends `Product` and pass it it's name :
+Each interface should extends `Product` and pass it its name :
 ```ts
 import type { Product } from 'ts-match' 
 
@@ -56,7 +56,7 @@ import { Match } from 'ts-match'
 const matchAnimal = Match<Animal>()
 ```
 
-`matchAnimal` can then be used as simple function anywhere.
+`matchAnimal` can be used as simple function anywhere.
 It will check for exhaustiveness at compile time.
 ```ts
 const dodger: Animal = Dog("Dodger", 23)
@@ -81,7 +81,7 @@ const nameOrNot = matchAnimal({
 })(dodger)
 ```
 
-Finally, the `matchAnimal` function is curryfied to be of simple use in reactive chains:
+Finally, the `matchAnimal` function is curried to be of simple use in reactive chains:
 ```ts
 const animals = ???
 
