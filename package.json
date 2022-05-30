@@ -12,17 +12,31 @@
   "author": "Merlin Goulet <merlin.goulet@live.fr>",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^3.0.0",
+    "@types/chai": "^4.2.7",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^5.2.7",
+    "ts-node": "^8.0.0",
+    "ts-patch": "^1.2.4",
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9",
-    "ts-patch": "^1.2.4",
-    "ts-node": "^8.0.0"
+    "typescript": "^4.0.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^6.2.2",
+    "fast-check" : "^3.0.0"
   },
   "optionalDependencies": {
-    "typescript": "^3.0.0",
+    "ts-node": "^8.0.0",
+    "ts-patch": "^1.2.4",
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9",
+    "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "ts-node": "^8.0.0",
     "ts-patch": "^1.2.4",
-    "ts-node": "^8.0.0"
+    "ts-toolbelt": "^6.9.4",
+    "ttypescript": "^1.5.9",
+    "typescript": "^4.0.0"
   }
 }
