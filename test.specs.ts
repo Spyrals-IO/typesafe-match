@@ -4,7 +4,7 @@ chai.should()
 const expect = chai.expect
 import fc, { object, nat, tuple, constant } from 'fast-check'
 
-import { doesMatch } from './sample'
+import { deepEquals, doesMatch } from './sample'
 
 function shuffle<T>(array: Array<T>): Array<T> {
 	let currentIndex = array.length,  randomIndex;
@@ -42,17 +42,42 @@ const valueAndTargetWithDifferentKeys = tuple(object(),object()).filter(([potent
 )
 
 const valueAndTargetSameKeysDifferentValues = tuple(object(), object()).filter(([potentialValue, potentialTarget]) =>
-		Object.keys(potentialValue).length > 0 && Object.keys(potentialTarget).every(element => 
-			Object.keys(potentialValue).includes(element) && potentialValue[element] !== potentialTarget[element] // Do they have the same keys and these keys have different values
+		Object.keys(potentialValue).length > 0 && Object.keys(potentialTarget).every(element =>
+			Object.keys(potentialValue).includes(element) && !ifObjectDeepEqual(potentialValue[element], potentialTarget[element])// Do they have the same keys and these keys have different values
 		)	
 )
 
+const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
+	if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null)
+		return deepEquals(a, b)
+	else
+		return a === b
+}
 
+const twoObjectsEqualsInContent = tuple(object(), object()).filter(([a, b]) =>
+		Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(element => Object.keys(b).includes(element)) && Object.values(a).every(element => Object.values(b).includes(element) && Object.keys(b).every(element => Object.keys(a).includes(element))) && Object.values(b).every(element => Object.values(a).includes(element))
+)
+
+const twoObjectsInequalsInContent = tuple(object(), object()).filter(([a, b]) =>
+		Object.keys(a).length !== Object.keys(b).length
+)
+
+describe('deepEquals', () => {
+	it('should return true when two objects are equals in content order insensitive', () => {
+		fc.assert(fc.property(twoObjectsEqualsInContent, ([a, b]) => {deepEquals(a, b)}), {numRuns: 1000})
+	}).timeout(100_000)
+	it('should return false when two objects are inequals in content', () => {
+		fc.assert(fc.property(twoObjectsInequalsInContent, ([a, b]) => {!deepEquals(a, b)}), {numRuns: 1000})
+	}).timeout(100_000)
+	it('should return false when two objects are inequals in values but same keys', () => {
+		fc.assert(fc.property(valueAndTargetSameKeysDifferentValues, ([a, b]) => {!deepEquals(a, b)}), {numRuns: 1000})
+	}).timeout(100_000)
+})
 
 describe('doesMatch', () => {
 	it('should return true when target\'s keys are a subset of value\'s keys with same values', () => {
-		fc.assert(fc.property(valueAndTarget, ([t, v]) => doesMatch(t, v)), {numRuns: 10_000})
-	})
+		fc.assert(fc.property(valueAndTarget, ([t, v]) => { fc.pre(!Object.values(t).some(Number.isNaN)); doesMatch(t, v) }), {numRuns: 10_000})
+	}).timeout(10_000)
 	it('should return false when target\'s keys are different from value\'s keys with or without same values', () => {
 		fc.assert(fc.property(valueAndTargetWithDifferentKeys, ([t, v]) => !doesMatch(t,v)), {numRuns: 10_000})
 	}).timeout(10_000)
@@ -60,90 +85,3 @@ describe('doesMatch', () => {
 		fc.assert(fc.property(valueAndTargetSameKeysDifferentValues, ([t, v]) => !doesMatch(t,v)), {numRuns: 10_000})
 	}).timeout(100_000)
 })
-/*
-describe('fastcheck failing', () => {
-	it('does Match', () => {
-		fc.assert(
-			fc.property(target, value, (t, v) => {
-				const isFound = doesMatch(t, v)
-				return isFound
-			}))
-	})
-})
-
-/*
-describe('doesMatch ts', () => {
-	it('should return a boolean true when target is in value', () => {
-			const target = {name:"feul", cutenesslevel: 9999} 
-			const value = {name:"feul", age: 2, cutenesslevel: 9999, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.true
-	})
-	it('should return a boolean true when target is in value', () => {
-			const target = {name:"feul"} 
-			const value = {name:"feul", age: 2, cutenesslevel: 9999, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.true
-	})
-	it('should return a boolean true when target is in value', () => {
-			const target = {age: 2} 
-			const value = {name:"feul", age: 2, cutenesslevel: 9999, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.true
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {name:"miette", cutenesslevel: 9999} 
-			const value = {name:"feul", age: 2, cutenesslevel: 9999, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {anything: 210} 
-			const value = {name:"feul", age: 2, cutenesslevel: 9999, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {} 
-			const value = {name:"feul", age: 2, height: 5} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {name:"feul", age: 2, cutenesslevel:9999, height: 5} 
-			const value = {name:"feul", age: 2} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {name:"feul", age: 2, cutenesslevel:9999, height: 5} 
-			const value = {} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-	it('should return a boolean false when target is not in value', () => {
-			const target = {} 
-			const value = {} 
-			
-			const isFound = doesMatch(target, value)
-
-			return expect(isFound).to.be.false
-	})
-})
-*/
