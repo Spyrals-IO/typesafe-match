@@ -7,7 +7,7 @@
     "install": "ts-patch install",
     "compile": "ttsc",
     "start": "ttsc && node ./dist/sample.js",
-    "test": "mocha 'test.specs.ts' --require ts-node/register"
+    "test": "mocha './test/*.specs.ts' --require ts-node/register"
   },
   "author": "Merlin Goulet <merlin.goulet@live.fr>",
   "license": "MIT",
