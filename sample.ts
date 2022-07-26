@@ -1,4 +1,5 @@
 import { Constructor, Match, Product } from './src'
+import { matchCase, defaultCase } from "./src/case";
 
 interface Dog extends Product<"Dog"> {
   name: string
@@ -55,7 +56,7 @@ console.log("Pedant pedestrians : ", horses)
 
 console.log("choosen one : ", nameOrTitle)
 
-/*
+
 const trueCats = animals.filter(matchAnimal({
   Cat: [
     // matchCase({name: 'feul', complex: {truc: { vachementComplex: { name: 'merlin' } } }, cutenessLevel: 9999})((cat: Cat) => true),
@@ -69,4 +70,3 @@ const trueCats = animals.filter(matchAnimal({
   Dog: () => false,
   Horse: () => false
 }))
-*/
