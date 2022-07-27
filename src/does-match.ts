@@ -1,11 +1,13 @@
 import { deepEquals } from "./deep-equals"
+import { entries } from "./entries"
+import { includes } from "./includes"
 
 export const doesMatch = (target: object, value: object): boolean => {
 
   const valueKeys = Object.keys(value)
-  const commonKeys = Object.keys(target).filter(value => valueKeys.includes(value))
-  const targetKV = Object.entries(target)
-  const valueKV = Object.entries(value)
+  const commonKeys = Object.keys(target).filter(value => includes(valueKeys, value))
+  const targetKV = entries(target)
+  const valueKV = entries(value)
 
   if (targetKV.length === 0)
     return true

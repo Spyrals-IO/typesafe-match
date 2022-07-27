@@ -1,5 +1,8 @@
 import { object, nat, tuple, constant } from 'fast-check'
 import { deepEquals } from '../src/deep-equals'
+import { entries } from '../src/entries';
+import { includes } from '../src/includes';
+import { values } from '../src/values';
 
 function shuffle<T>(array: Array<T>): Array<T> {
   let currentIndex = array.length,  randomIndex;
@@ -22,7 +25,7 @@ function shuffle<T>(array: Array<T>): Array<T> {
 
 export const valueAndTarget = object().chain(vTest => 
 tuple(nat(Object.keys(vTest).length).map(rand =>
-        shuffle(Object.entries(vTest))
+        shuffle(entries(vTest))
                 .reduce<Record<string, unknown>>( (acc, [k, v], index) => {
                         if (index > rand) {
                                 acc[k] = v
@@ -37,7 +40,7 @@ export const valueAndTargetWithDifferentKeys = tuple(object(),object()).filter((
 )
 
 export const twoObjectsEqualsInContent = tuple(object(), object()).filter(([a, b]) =>
-		Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(element => Object.keys(b).includes(element)) && Object.values(a).every(element => Object.values(b).includes(element) && Object.keys(b).every(element => Object.keys(a).includes(element))) && Object.values(b).every(element => Object.values(a).includes(element))
+		Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(element => includes(Object.keys(b), element)) && values(a).every(element => includes(values(b), element) && Object.keys(b).every(element => includes(Object.keys(a), element))) && values(b).every(element => includes(values(a), element))
 )
 
 export const twoObjectsInequalsInContent = tuple(object(), object()).filter(([a, b]) =>
@@ -46,7 +49,7 @@ export const twoObjectsInequalsInContent = tuple(object(), object()).filter(([a,
 
 export const valueAndTargetSameKeysDifferentValues = tuple(object(), object()).filter(([potentialValue, potentialTarget]) =>
 		Object.keys(potentialValue).length > 0 && Object.keys(potentialTarget).every(element =>
-			Object.keys(potentialValue).includes(element) && !ifObjectDeepEqual(potentialValue[element], potentialTarget[element])// Do they have the same keys and these keys have different values
+			includes(Object.keys(potentialValue), element) && !ifObjectDeepEqual(potentialValue[element], potentialTarget[element])// Do they have the same keys and these keys have different values
 		)	
 )
 

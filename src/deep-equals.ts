@@ -1,3 +1,4 @@
+import { entries } from './entries'
 import { zip } from './zip'
 
 export const deepEquals = (obj1: object, obj2: object): boolean => {
@@ -13,8 +14,8 @@ export const deepEquals = (obj1: object, obj2: object): boolean => {
   if (!(keys1.every(key1 => keys2.find(key2 => key1 === key2) && keys2.every(key2 => keys1.find(key1 => key2 === key1)))))
     return false
 
-  const entries1 = Object.entries(obj1)
-  const entries2 = Object.entries(obj2)
+  const entries1 = entries(obj1)
+  const entries2 = entries(obj2)
 
   entries1.sort((a, b) => a[0].localeCompare(b[0]))
   entries2.sort((a, b) => a[0].localeCompare(b[0]))
