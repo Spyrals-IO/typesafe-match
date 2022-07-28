@@ -1,4 +1,4 @@
-import { object, nat, tuple, constant } from 'fast-check'
+import { object, nat, tuple, constant, array, anything } from 'fast-check'
 import { deepEquals } from '../src/deep-equals'
 import { entries } from '../src/entries';
 import { includes } from '../src/includes';
@@ -59,3 +59,5 @@ export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
 	else
 		return a === b
 }
+
+export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([anArray, notInArray]) => anArray.findIndex(element => element === notInArray) === -1)
