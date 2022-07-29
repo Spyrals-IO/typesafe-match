@@ -61,3 +61,7 @@ export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
 }
 
 export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([anArray, notInArray]) => anArray.findIndex(element => element === notInArray) === -1)
+
+export const objectAndArrayValues = tuple(object(), array(anything())).filter(([anObject, arrayValues]) => arrayValues.every(element => values(anObject).findIndex(e => element === e) !== -1))
+
+export const objectAndArrayEntries = tuple(object(), array(array(anything()))).filter(([anObject, arrayEntries]) => arrayEntries.every(element => entries(anObject).findIndex(e => element === e) !== -1))
