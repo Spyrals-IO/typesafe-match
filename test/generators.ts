@@ -16,7 +16,7 @@ function shuffle<T>(array: Array<T>): Array<T> {
 
     // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+      array[randomIndex], array[currentIndex]];
   }
 
   return array;
@@ -24,15 +24,15 @@ function shuffle<T>(array: Array<T>): Array<T> {
 
 
 export const valueAndTarget = object().chain(vTest => 
-tuple(nat(Object.keys(vTest).length).map(rand =>
-        shuffle(entries(vTest))
-                .reduce<Record<string, unknown>>( (acc, [k, v], index) => {
-                        if (index > rand) {
-                                acc[k] = v
-                        }
-                        return acc
-                }, {} )
-), constant(vTest))
+  tuple(nat(Object.keys(vTest).length).map(rand =>
+    shuffle(entries(vTest))
+      .reduce<Record<string, unknown>>( (acc, [k, v], index) => {
+        if (index > rand) {
+          acc[k] = v
+        }
+        return acc
+      }, {} )
+  ), constant(vTest))
 )
 
 export const valueAndTargetWithDifferentKeys = tuple(object(),object()).filter(([potentialValue, potentialTarget]) =>
@@ -40,24 +40,24 @@ export const valueAndTargetWithDifferentKeys = tuple(object(),object()).filter((
 )
 
 export const twoObjectsEqualsInContent = tuple(object(), object()).filter(([a, b]) =>
-		Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(element => includes(Object.keys(b), element)) && values(a).every(element => includes(values(b), element) && Object.keys(b).every(element => includes(Object.keys(a), element))) && values(b).every(element => includes(values(a), element))
+    Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(element => includes(Object.keys(b), element)) && values(a).every(element => includes(values(b), element) && Object.keys(b).every(element => includes(Object.keys(a), element))) && values(b).every(element => includes(values(a), element))
 )
 
 export const twoObjectsInequalsInContent = tuple(object(), object()).filter(([a, b]) =>
-		Object.keys(a).length !== Object.keys(b).length
+    Object.keys(a).length !== Object.keys(b).length
 )
 
 export const valueAndTargetSameKeysDifferentValues = tuple(object(), object()).filter(([potentialValue, potentialTarget]) =>
-		Object.keys(potentialValue).length > 0 && Object.keys(potentialTarget).every(element =>
-			includes(Object.keys(potentialValue), element) && !ifObjectDeepEqual(potentialValue[element], potentialTarget[element])// Do they have the same keys and these keys have different values
-		)	
+    Object.keys(potentialValue).length > 0 && Object.keys(potentialTarget).every(element =>
+      includes(Object.keys(potentialValue), element) && !ifObjectDeepEqual(potentialValue[element], potentialTarget[element])// Do they have the same keys and these keys have different values
+    )	
 )
 
 export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
-	if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null)
-		return deepEquals(a, b)
-	else
-		return a === b
+  if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null)
+    return deepEquals(a, b)
+  else
+    return a === b
 }
 
 export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([anArray, notInArray]) => anArray.findIndex(element => element === notInArray) === -1)
