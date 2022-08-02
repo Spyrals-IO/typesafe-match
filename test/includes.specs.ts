@@ -5,13 +5,8 @@ import fc from 'fast-check'
 import { includes } from '../src/includes'
 import { arrayAndNotElement } from './generators'
 
-function generateRandom(maxLimit: number): number{
-  let rand: number = Math.random() * maxLimit
-
-  rand = Math.floor(rand)
-
-  return rand
-}
+const generateRandom = (maxLimit: number): number =>
+  Math.floor(Math.random() * maxLimit)
 
 describe('includes', () => {
   it('should always includes one of its element when at least one element is present', () => {
