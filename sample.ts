@@ -22,7 +22,7 @@ type Animal = Cat | Dog | Horse
 
 const matchAnimal = Match<Animal>()
 
-const Cat = Constructor<Cat>()//TODO no macro, prend un paramètre pour la valeur en dur et contruit la fonction ainsi
+const Cat = Constructor<Cat>()
 const Dog = Constructor<Dog>()
 const Horse = Constructor<Horse>()
 
@@ -59,11 +59,6 @@ console.log("choosen one : ", nameOrTitle)
 
 const trueCats = animals.filter(matchAnimal({
   Cat: [
-    // matchCase({name: 'feul', complex: {truc: { vachementComplex: { name: 'merlin' } } }, cutenessLevel: 9999})((cat: Cat) => true),
-    // matchCase({name: 'rere', age : 5})((cat: Cat) => true),
-    // matchCase({age : 5})((cat: Cat) => true),
-    // matchCase({name: 'rere'})((cat: Cat) => true),
-    // matchCase({})((cat: Cat) => true),
     matchCase({name: 'feul', cutenessLevel: 9999})((cat: Cat) => true),
     defaultCase((cat: Cat) => false)
   ],
