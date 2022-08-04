@@ -43,12 +43,10 @@ export const deepEquals = (obj1: object, obj2: object): boolean => {
       case 'object':
         if (!deepEquals(value1, value2))
           return false
-        break;
       
       default:
         if(value1 !== value2)
           return false
-        break;
     }
     return true
   })(), true)
