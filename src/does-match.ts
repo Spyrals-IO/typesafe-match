@@ -11,7 +11,7 @@ export const doesMatch = (target: object, value: object): boolean => {
 
   if (targetKV.length === 0)
     return true
-  else if (commonKeys.length === 0)
+  if (commonKeys.length === 0)
     return false
   
   const checkTarget: [string, unknown][]= commonKeys.map(commonKey => 
