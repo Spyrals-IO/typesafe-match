@@ -1,6 +1,4 @@
-import * as chai from 'chai'
 import 'mocha'
-chai.should()
 import fc from 'fast-check'
 import { doesMatch } from '../src/does-match'
 import { valueAndTarget, valueAndTargetWithDifferentKeys, valueAndTargetSameKeysDifferentValues } from './generators'

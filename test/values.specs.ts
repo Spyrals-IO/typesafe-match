@@ -1,6 +1,4 @@
-import * as chai from 'chai'
 import 'mocha'
-chai.should()
 import fc from 'fast-check'
 import { values } from '../src/values';
 import { objectAndArrayValues } from './generators';
