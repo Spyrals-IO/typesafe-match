@@ -24,9 +24,5 @@
   "optionalDependencies": {
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9"
-  },
-  "dependencies": {
-    "ts-toolbelt": "^6.9.4",
-    "ttypescript": "^1.5.9"
   }
 }
