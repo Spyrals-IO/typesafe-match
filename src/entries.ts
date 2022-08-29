@@ -1,2 +1,2 @@
-export const entries = (obj: any): Array<any[]> => 
+export const entries = (obj: Record<string, unknown>): ReadonlyArray<[string, unknown]> => 
   Object.keys(obj).map(key => [key, obj[key]])

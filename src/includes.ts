@@ -1,2 +1,2 @@
-export const includes = <T>(array: Array<T>, searchElement: T): boolean =>
+export const includes = <T>(array: ReadonlyArray<T>, searchElement: T): boolean =>
   array.indexOf(searchElement) !== -1

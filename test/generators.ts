@@ -4,7 +4,7 @@ import { entries } from '../src/entries';
 import { includes } from '../src/includes';
 import { values } from '../src/values';
 
-function shuffle<T>(array: Array<T>): Array<T> {
+const shuffle = <T>(array: Array<T>): ReadonlyArray<T> => {
   let currentIndex = array.length,  randomIndex;
 
   // While there remain elements to shuffle.
@@ -25,7 +25,7 @@ function shuffle<T>(array: Array<T>): Array<T> {
 
 export const valueAndTarget = object().chain(vTest => 
   tuple(nat(Object.keys(vTest).length).map(rand =>
-    shuffle(entries(vTest))
+    shuffle(entries(vTest) as Array<[string, unknown]>)
       .reduce<Record<string, unknown>>( (acc, [k, v], index) => {
         if (index > rand) {
           acc[k] = v
@@ -55,7 +55,7 @@ export const valueAndTargetSameKeysDifferentValues = tuple(object(), object()).f
 
 export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
   if (typeof a === 'object' && typeof b === 'object' && a !== null && b !== null)
-    return deepEquals(a, b)
+    return deepEquals(a as Record<string, unknown>, b as Record<string, unknown>)
   else
     return a === b
 }
