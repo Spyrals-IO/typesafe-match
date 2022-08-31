@@ -1,7 +1,12 @@
 import { doesMatch } from "./does-match"
 
-export const matchCase = <Target>(target: Target) => <T extends Partial<Target>, Return>(handler: (value: T) => Return) => (value: T): Return | null => //TODO Remove constraints when supporting other types
-  doesMatch(target as unknown as object, value) ? handler(value) : null
+// Case if made off of a validation function and a handler to execute in case (pun intended) of match.
+export type Case<Product, Return> = [(value: Product) => boolean, (value: Product) => Return]
 
-export const defaultCase = <T, Return>(handler: (value: T) => Return) => (value: T): Return | null =>
-  handler(value)
+export const matchCase = <Target extends object>(
+  target: Target
+) => <Product extends object, Return>(
+  handler: (value: Product) => Return
+): Case<Product, Return> => [(value: Product) => doesMatch(target, value), handler]
+
+export const defaultCase = <Product, Return>(handler: (value: Product) => Return): Case<Product, Return> => [() => true, handler]

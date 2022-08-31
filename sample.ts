@@ -56,12 +56,13 @@ console.log("Pedant pedestrians : ", horses)
 
 console.log("choosen one : ", nameOrTitle)
 
-
 const trueCats = animals.filter(matchAnimal({
   Cat: [
-    matchCase({name: 'feul', cutenessLevel: 9999})((cat: Cat) => true),
-    defaultCase((cat: Cat) => false)
+    matchCase({name: 'feul', cutenessLevel: 9999})((_: Cat) => true),
+    defaultCase((_: Cat) => false),
   ],
   Dog: () => false,
   Horse: () => false
 }))
+
+console.log(trueCats)
