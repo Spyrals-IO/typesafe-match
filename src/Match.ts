@@ -12,8 +12,11 @@ type MatchesWithUnderscore<All extends {__type: string}, Return> = UnnamedMatch<
 type UnnamedMatch<Param, Return> = 
   { _: (match: Param) => Return }
 
-type NamedMatches<T extends ReadonlyArray<{__type: string}>, Return> = 
-  T[1] extends undefined ? NamedMatch<T[0], Return> : NamedMatch<T[0], Return> & NamedMatches<List.Tail<T>, Return>
+
+type NamedMatches<T extends ReadonlyArray<{__type: string}>, Return> = {
+  0 : NamedMatch<T[0], Return>,
+  1 : NamedMatch<T[0], Return> & NamedMatches<List.Tail<T>, Return>,
+}[T[1] extends undefined ? 1 : 0]
 
 type NamedMatch<Param extends {__type: string}, Return> =
   { [key in Param["__type"]]: ((match: Param) => Return) | Array<Case<Param, Return>> }
