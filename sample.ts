@@ -1,5 +1,5 @@
 import { Constructor, Match, Product } from './src'
-import { matchCase, defaultCase } from "./src/case";
+import { matchCase, defaultCase, iff } from "./src/case";
 
 interface Dog extends Product<"Dog"> {
   name: string
@@ -58,8 +58,11 @@ console.log("choosen one : ", nameOrTitle)
 
 const trueCats = animals.filter(matchAnimal({
   Cat: [
-    matchCase({name: 'feul', cutenessLevel: 9999})((_: Cat) => true),
-    defaultCase((_: Cat) => false),
+    matchCase(
+      {name: 'feul', cutenessLevel: 9999},
+      iff((aCat: Cat) => (!!aCat.cutenessLevel && aCat.cutenessLevel > aCat.age))
+    )((_: Cat) => true),
+    defaultCase(()=>true, (_: Cat) => false),
   ],
   Dog: () => false,
   Horse: () => false
