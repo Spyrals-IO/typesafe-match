@@ -19,7 +19,8 @@
     "ts-toolbelt": "^6.9.4",
     "ttypescript": "^1.5.9",
     "mocha": "^6.2.2",
-    "fast-check" : "^3.0.0"
+    "fast-check" : "^2.0.0",
+    "typescript": "^3.0.0"
   },
   "optionalDependencies": {
     "ts-toolbelt": "^6.9.4",
