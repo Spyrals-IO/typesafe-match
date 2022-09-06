@@ -9,10 +9,10 @@ export type Case<Product, Return> = [(value: Product) => boolean, (value: Produc
 
 export const matchCase = <Target extends object, Product extends object>(
   target: Target,
-  condition: MatchCondition<Product>
+  condition?: MatchCondition<Product>
 ) => <Return>(
   handler: (value: Product) => Return
-): Case<Product, Return> => [(value: Product) => condition(value) && doesMatch(target, value), handler]
+): Case<Product, Return> => [(value: Product) => typeof condition !== "undefined" ? condition(value) && doesMatch(target, value) : doesMatch(target, value), handler]
 
 export const defaultCase = <Product extends object, Return>(
   condition: MatchCondition<Product>,
