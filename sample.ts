@@ -62,7 +62,8 @@ const trueCats = animals.filter(matchAnimal({
       {name: 'feul', cutenessLevel: 9999},
       iff((aCat: Cat) => (!!aCat.cutenessLevel && aCat.cutenessLevel > aCat.age))
     )((_: Cat) => true),
-    defaultCase(()=>true, (_: Cat) => false),
+    //defaultCase(()=>true, (_: Cat) => false),
+    defaultCase()(() => true),
   ],
   Dog: () => false,
   Horse: () => false
