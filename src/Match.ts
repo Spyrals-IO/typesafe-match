@@ -1,5 +1,5 @@
 import type { Union, List } from 'ts-toolbelt'
-import type { Case } from './case'
+import type { Case, DefaultCase } from './case'
 
 export type Match<
   T extends {__type: string}
@@ -19,4 +19,7 @@ type NamedMatches<T extends ReadonlyArray<{__type: string}>, Return> = {
 }[T[1] extends undefined ? 0 : 1]
 
 type NamedMatch<Param extends {__type: string}, Return> =
-  { [key in Param["__type"]]: ((match: Param) => Return) | Array<Case<Param, Return>> }
+  { [key in Param["__type"]]: DirectMatch<Param, Return> | SubMatches<Param, Return> }
+
+type DirectMatch<Param extends {__type: string}, Return> = (match: Param) => Return
+type SubMatches<Param extends {__type: string}, Return> = [...Array<Case<Param, Return>>, DefaultCase<Param, Return>]

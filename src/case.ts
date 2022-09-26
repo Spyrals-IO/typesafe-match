@@ -1,11 +1,16 @@
 import { doesMatch } from "./does-match"
 
-type MatchCondition<Product extends object> = (value: Product) => boolean
+// Error message clarification
+type DefaultCondition = () => true
+type MatchCondition<Product> = (value: Product) => boolean
 
 export const iff = <Product extends object>(c: MatchCondition<Product>): MatchCondition<Product> => c
 
 // Case if made off of a validation function and a handler to execute in case (pun intended) of match.
-export type Case<Product, Return> = [(value: Product) => boolean, (value: Product) => Return]
+export type Case<Product, Return> = [MatchCondition<Product>, (value: Product) => Return]
+
+// A default case is a case which condition always return true
+export type DefaultCase<Product, Return> = [DefaultCondition, (value: Product) => Return]
 
 // MatchCase
 export function matchCase<Target extends object>(target: Target): <Product extends object, Return>(handler: (value: Product) => Return) => Case<Product, Return>
@@ -22,9 +27,9 @@ export function matchCase(...params: ReadonlyArray<any>){
 }
 
 // DefaultCase
-export function defaultCase<Product extends object, Return>(handler: (value: Product) => Return): Case<Product, Return>
+export function defaultCase<Product extends object, Return>(handler: (value: Product) => Return): DefaultCase<Product, Return>
 
-export function defaultCase<Product extends object, Return>(condition: MatchCondition<Product>, handler: (value: Product) => Return): Case<Product, Return>
+export function defaultCase<Product extends object, Return>(condition: MatchCondition<Product>, handler: (value: Product) => Return): DefaultCase<Product, Return>
 
 export function defaultCase(...params: ReadonlyArray<unknown>){
   const [param1, param2] = params
