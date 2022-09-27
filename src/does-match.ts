@@ -1,26 +1,31 @@
 import { deepEquals } from "./deep-equals"
 import { entries } from "./entries"
 import { includes } from "./includes"
+import { Descriptor } from "./descriptors"
 
-export const doesMatch = (target: object, value: object): boolean => {
+const selectByKeys = (keys: ReadonlyArray<string>, obj: Record<string, unknown>): Record<string, unknown> =>
+  entries(obj).reduce((acc, [k, v]) => includes(keys, k) ? { ...acc, [k]: v} : acc, {})
+
+export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, value: object): boolean => {
+  // For each key of target that have a descriptor
+  // Check in value's same key if the descriptor hold (validate)
+  // After all descriptors have hold, get the sub-target that does not contains
+  // descriptors and then apply your bellow algorithm.
+
+  // Replace target by targetWithoutDescriptor :)
+  const targetEntries = entries(target as Record<string, unknown>)
+
+  if (targetEntries.length === 0)
+    return true
 
   const valueKeys = Object.keys(value)
-  const commonKeys = Object.keys(target).filter(value => includes(valueKeys, value))
-  const targetKV = entries(target as Record<string, unknown>)
-  const valueKV = entries(value as Record<string, unknown>)
-  const checkCommonKeys = (entree: ReadonlyArray<ReadonlyArray<unknown>>):[string, unknown][] => {
-    return commonKeys.map(commonKey => 
-      entree.find(element => element[0] === commonKey) as [string, unknown] //commonKeys contains all the common keys so each array must contain the key we are looking for
-    )
-  }
+  const onlyCommonKeys = targetEntries.map(([targetKey]) => targetKey).filter(targetKey => includes(valueKeys, targetKey))
 
-  if (targetKV.length === 0)
-    return true
-  if (commonKeys.length === 0)
+  if (onlyCommonKeys.length === 0)
     return false
   
-  const checkTarget = checkCommonKeys(valueKV)
-  const checkValue = checkCommonKeys(targetKV)
+  const subTarget = selectByKeys(onlyCommonKeys, value as Record<string, unknown>)
+  const subValue = selectByKeys(onlyCommonKeys, target as Record<string, unknown>)
   
-  return deepEquals(checkTarget as unknown as Record<string, unknown>, checkValue as unknown as Record<string, unknown>)
+  return deepEquals(subTarget, subValue)
 }
