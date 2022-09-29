@@ -1,5 +1,5 @@
 import { doesMatch } from "./does-match"
-import { number, defined, Descriptor } from "./descriptors"
+import { Descriptor } from "./descriptors"
 
 // Error message clarification
 type DefaultCondition = () => true
