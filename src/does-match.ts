@@ -7,19 +7,24 @@ const selectByKeys = (keys: ReadonlyArray<string>, obj: Record<string, unknown>)
   entries(obj).reduce((acc, [k, v]) => includes(keys, k) ? { ...acc, [k]: v} : acc, {})
 
 export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, value: object): boolean => {
-  // For each key of target that have a descriptor
-  // Check in value's same key if the descriptor hold (validate)
-  // After all descriptors have hold, get the sub-target that does not contains
-  // descriptors and then apply your bellow algorithm.
-
-  // Replace target by targetWithoutDescriptor :)
-  const targetEntries = entries(target as Record<string, unknown>)
-
-  if (targetEntries.length === 0)
+  
+  if (entries(target as Record<string, unknown>).length === 0)
     return true
 
+  const targetWithoutDescriptor: Array<[string, unknown]> = []
+  
+  entries(target as Record<string, unknown>).map((entry) => {
+    if(entry[1] instanceof Descriptor) {
+      if(!entry[1].validate((value as Record<string, unknown>)[entry[0]]))
+        return false
+    }
+    else {
+      targetWithoutDescriptor.push(entry)
+    }
+  })
+  
   const valueKeys = Object.keys(value)
-  const onlyCommonKeys = targetEntries.map(([targetKey]) => targetKey).filter(targetKey => includes(valueKeys, targetKey))
+  const onlyCommonKeys = targetWithoutDescriptor.map(([targetKey]) => targetKey).filter(targetKey => includes(valueKeys, targetKey))
 
   if (onlyCommonKeys.length === 0)
     return false

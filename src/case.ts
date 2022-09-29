@@ -36,9 +36,3 @@ export function defaultCase(...params: ReadonlyArray<unknown>){
   const [param1, param2] = params
   return param2 ? params : [() => true, param1]
 }
-
-Cat: [
-  matchCase({cutenessLevel: 1})(() => true),
-  matchCase({cutenessLevel: defined()})(() => true),
-  matchCase({cutenessLevel: number()})(() => true)
-]
