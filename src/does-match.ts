@@ -8,12 +8,13 @@ const selectByKeys = (keys: ReadonlyArray<string>, obj: Record<string, unknown>)
 
 export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, value: object): boolean => {
   
-  if (entries(target as Record<string, unknown>).length === 0)
+  const targetEntries = entries(target as Record<string, unknown>)
+  if (targetEntries.length === 0)
     return true
 
   const targetWithoutDescriptor: Array<[string, unknown]> = []
   
-  entries(target as Record<string, unknown>).map((entry) => {
+  targetEntries.map((entry) => {
     if(entry[1] instanceof Descriptor) {
       if(!entry[1].validate((value as Record<string, unknown>)[entry[0]]))
         return false
