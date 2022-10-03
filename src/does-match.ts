@@ -13,6 +13,8 @@ export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, 
     return true
 
   // const targetWithoutDescriptor: Array<[string, unknown]> = []
+  if (targetEntries.map(([targetKey]) => targetKey).filter(targetKey => includes(Object.keys(value), targetKey)).length === 0) //Resolve cases like doesMatch({"":undefined}, {})
+    return false
 
   const didMatch = targetEntries.every(([key, descriptorOrValue]) => 
     descriptorOrValue instanceof Descriptor 
