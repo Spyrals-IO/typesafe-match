@@ -20,7 +20,6 @@ export const areEquals = (value1: unknown, value2: unknown): boolean => {
   switch (typeof value1) {
     case "object":
       return deepEquals(value1 as Record<string, unknown>, value2 as Record<string, unknown>)
-      //if (!deepEquals(value1 as Record<string, unknown>, value2 as Record<string, unknown>)) return false;
 
     default:
       if (value1 !== value2) return false;
