@@ -1,4 +1,5 @@
 import { doesMatch } from "./does-match"
+import { Descriptor } from "./descriptors"
 
 // Error message clarification
 type DefaultCondition = () => true
@@ -13,9 +14,9 @@ export type Case<Product, Return> = [MatchCondition<Product>, (value: Product) =
 export type DefaultCase<Product, Return> = [DefaultCondition, (value: Product) => Return]
 
 // MatchCase
-export function matchCase<Target extends object>(target: Target): <Product extends object, Return>(handler: (value: Product) => Return) => Case<Product, Return>
+export function matchCase<Target extends Record<string, Descriptor<unknown>> | object>(target: Target): <Product extends object, Return>(handler: (value: Product) => Return) => Case<Product, Return>
 
-export function matchCase<Target extends object, Product extends object>(target: Target, condition: MatchCondition<Product>): <Return>(handler: (value: Product) => Return) => Case<Product, Return>
+export function matchCase<Target extends Record<string, Descriptor<unknown>> | object, Product extends object>(target: Target, condition: MatchCondition<Product>): <Return>(handler: (value: Product) => Return) => Case<Product, Return>
 
 export function matchCase(...params: ReadonlyArray<any>){
   const [target, maybeCondition] = params
