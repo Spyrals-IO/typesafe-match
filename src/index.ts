@@ -1,11 +1,48 @@
 import { transformer } from './transformer'
+import { values } from './values'
 
 import type { Match } from './Match'
 import type { Constructor } from './Constructor'
 
 export declare function Constructor<T>(): Constructor<T>
 
-export function Match<T extends Product<string>>(): Match<T> {
+const isMatchCaseOrDefaultCase = (currentValue: any): currentValue is any => {
+  return typeof currentValue === "function" && currentValue.length <= 1
+}
+
+const isCase = (currentValue: any): currentValue is any =>  {
+  if(currentValue.length === 2){
+    currentValue.every(isMatchCaseOrDefaultCase)
+  }
+  return false
+}
+
+const isCaseOrFunction = (currentValue: any) => {
+  if(typeof currentValue === "function" && currentValue.length <= 1)
+    return true
+  
+  if(Array.isArray(currentValue)){
+    return currentValue.every(isCase)
+  }
+
+  return false
+}
+
+export const isMatcher = (matcherOrMatchOn: any): matcherOrMatchOn is any => {
+  return values(matcherOrMatchOn).every(isCaseOrFunction)
+}
+
+const separate = (matcherOrMatchOn: any, matchOnOrMatcher: any): [Matcher, T] => {
+  if(isMatcher(matcherOrMatchOn)) {
+      return [matcherOrMatchOn, matchOnOrMatcher]
+  } else {
+      return [matchOnOrMatcher, matcherOrMatchOn]
+  }
+}
+
+export function Match<T extends Product<string>>(matcherOrMatchOn: any, matchOnOrMatcher: any): Match<T> {
+  const [matcher, matchOn] = separate(matcherOrMatchOn, matchOnOrMatcher)
+
   return ((matcher: any) => (matchOn: any) => {
     // find the top-level matcher for this type
     const caseOrArrayMatcher = matcher[matchOn.__type]
