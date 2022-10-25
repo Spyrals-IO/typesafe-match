@@ -1,25 +1,19 @@
 import { values } from './values'
 
-const isMatchCaseOrDefaultCase = (currentValue: any): currentValue is any => {
+const isValidator = (currentValue: any): currentValue is any => {
+  return typeof currentValue() === "boolean" && currentValue.length === 1
+}
+
+const isHandler = (currentValue: any): currentValue is any => {
   return typeof currentValue === "function" && currentValue.length <= 1
 }
 
 const isCase = (currentValue: any): currentValue is any =>  {
-  if(currentValue.length === 2){
-    currentValue.every(isMatchCaseOrDefaultCase)
-  }
-  return false
+  return Array.isArray(currentValue) && currentValue.length === 2 ? isValidator(currentValue[0]) && isHandler(currentValue[1]) : false
 }
 
-const isCaseOrFunction = (currentValue: any) => {
-  if(typeof currentValue === "function" && currentValue.length <= 1)
-    return true
-  
-  if(Array.isArray(currentValue)){
-    return currentValue.every(isCase)
-  }
-
-  return false
+const isCaseOrFunction = (currentValue: any): boolean => {
+  return Array.isArray(currentValue) ? currentValue.every(isCase) : typeof currentValue === "function" && currentValue.length <= 1
 }
 
 export const isMatcher = (matcherOrMatchOn: any): matcherOrMatchOn is any => {
