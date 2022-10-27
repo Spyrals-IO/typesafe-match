@@ -1,8 +1,9 @@
-import { object, nat, tuple, constant, array, anything } from 'fast-check'
+import { object, nat, tuple, constant, array, anything, func, boolean } from 'fast-check'
 import { deepEquals } from '../src/deep-equals'
 import { entries } from '../src/entries';
 import { includes } from '../src/includes';
 import { values } from '../src/values';
+import { isValidator, isHandler, isCase, isCaseOrFunction } from '../src/isMatcher'
 
 const shuffle = <T>(array: Array<T>): ReadonlyArray<T> => {
   let currentIndex = array.length,  randomIndex;
@@ -65,3 +66,13 @@ export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([
 export const objectAndArrayValues = tuple(object(), array(anything())).filter(([anObject, arrayValues]) => arrayValues.every(element => values(anObject).findIndex(e => element === e) !== -1))
 
 export const objectAndArrayEntries = tuple(object(), array(array(anything()))).filter(([anObject, arrayEntries]) => arrayEntries.every(element => entries(anObject).findIndex(e => element === e) !== -1))
+
+export const functionReturningBooleanOneParam = func(boolean()).filter((aFunction) => typeof aFunction() === 'boolean' && aFunction.length === 1)
+
+export const functionOneOrNoParam = func(boolean()).filter((aFunction) => aFunction.length <= 1)
+
+export const tupleValidatorAndHandler = tuple(func(boolean()), func(boolean())).filter(([aValidator, anHandler]) => isValidator(aValidator) && isHandler(anHandler))
+
+export const arrayOfCases = array(func(boolean())).filter((aFunction) => isCase(aFunction))
+
+export const aMatcher = object().filter((aMatcher) => values(aMatcher).every(isCaseOrFunction))
