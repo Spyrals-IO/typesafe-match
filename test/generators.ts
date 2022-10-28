@@ -67,9 +67,9 @@ export const objectAndArrayValues = tuple(object(), array(anything())).filter(([
 
 export const objectAndArrayEntries = tuple(object(), array(array(anything()))).filter(([anObject, arrayEntries]) => arrayEntries.every(element => entries(anObject).findIndex(e => element === e) !== -1))
 
-export const functionReturningBooleanOneParam = func(boolean()).filter((aFunction) => typeof aFunction() === 'boolean' && aFunction.length === 1)
+export const functionReturningBooleanOneParam = func(boolean()).filter((aFunction) => aFunction.length === 1)
 
-export const functionOneOrNoParam = func(boolean()).filter((aFunction) => aFunction.length <= 1)
+export const functionOneOrNoParam = func(anything()).filter((aFunction) => aFunction.length <= 1)
 
 export const tupleValidatorAndHandler = tuple(func(boolean()), func(boolean())).filter(([aValidator, anHandler]) => isValidator(aValidator) && isHandler(anHandler))
 

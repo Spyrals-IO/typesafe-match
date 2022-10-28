@@ -1,7 +1,7 @@
 import { values } from './values'
 
 export const isValidator = (currentValue: any): currentValue is any =>
-  typeof currentValue() === "boolean" && currentValue.length === 1
+  typeof currentValue === "function" && typeof currentValue() === "boolean" && currentValue.length === 1
 
 
 export const isHandler = (currentValue: any): currentValue is any => 
