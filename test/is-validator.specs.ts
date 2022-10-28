@@ -1,10 +1,10 @@
 import 'mocha'
 import fc from 'fast-check'
 import { isValidator } from '../src/isMatcher'
-import { functionReturningBooleanOneParam } from './generators'
+import { generateValidator } from './generators'
 
 describe('isValidator', () => {
   it('should return', () => {
-    fc.assert(fc.property(functionReturningBooleanOneParam, (a) => {isValidator(a)}), {numRuns: 10})
+    fc.assert(fc.property(generateValidator, isValidator), {numRuns: 1000})
   }).timeout(10_000)
 })
