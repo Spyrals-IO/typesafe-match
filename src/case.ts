@@ -5,13 +5,17 @@ import { Descriptor } from "./descriptors"
 type DefaultCondition = () => true
 type MatchCondition<Product> = (value: Product) => boolean
 
+// Internal naming for clarity
+export type Validator<Product> = MatchCondition<Product>
+export type Handler<Product, Return> = (value: Product) => Return
+
 export const iff = <Product extends object>(c: MatchCondition<Product>): MatchCondition<Product> => c
 
 // Case if made off of a validation function and a handler to execute in case (pun intended) of match.
-export type Case<Product, Return> = [MatchCondition<Product>, (value: Product) => Return]
+export type Case<Product, Return> = [MatchCondition<Product>, Handler<Product, Return>]
 
 // A default case is a case which condition always return true
-export type DefaultCase<Product, Return> = [DefaultCondition, (value: Product) => Return]
+export type DefaultCase<Product, Return> = [DefaultCondition, Handler<Product, Return>]
 
 // MatchCase
 export function matchCase<Target extends Record<string, Descriptor<unknown>> | object>(target: Target): <Product extends object, Return>(handler: (value: Product) => Return) => Case<Product, Return>
