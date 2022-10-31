@@ -4,8 +4,17 @@ import type { Case, DefaultCase } from './case'
 export type Match<
   T extends {__type: string}
 > = <Return>(
-  matcher: UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> | NamedMatches<Union.ListOf<T>, Return>
-) => (t: T) => Return
+  matcherOrMatchOn: Matcher<T, Return> | T
+) => (
+  matchOnOrMatcher: MatcherOrValue<typeof matcherOrMatchOn, T, Return>
+) => Return
+
+type Matcher<T extends {__type: string}, Return> = UnnamedMatch<T, Return> | MatchesWithUnderscore<T, Return> | NamedMatches<Union.ListOf<T>, Return>
+
+type MatcherOrValue<MOrV, T extends {__type: string} , Return> = 
+  MOrV extends {__type: string} 
+  ? T
+  : Matcher<T, Return>
 
 type MatchesWithUnderscore<All extends {__type: string}, Return> = UnnamedMatch<All, Return> & NamedMatch<All, Return>
 

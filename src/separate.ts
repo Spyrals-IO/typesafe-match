@@ -1,6 +1,6 @@
 import { isMatcher } from './isMatcher'
 
-export const separate = (matcherOrMatchOn: any, matchOnOrMatcher: any): [Matcher, T] => {
+export const separate = (matcherOrMatchOn: any, matchOnOrMatcher: any): [any, any] => {
   if(isMatcher(matcherOrMatchOn)) {
       return [matcherOrMatchOn, matchOnOrMatcher]
   } else {

@@ -26,7 +26,7 @@ const Cat = Constructor<Cat>()
 const Dog = Constructor<Dog>()
 const Horse = Constructor<Horse>()
 
-const animals: ReadonlyArray<Animal> = [Cat("Feul", 56), Dog("Tramp", 67), Dog("Dodger", 23), Horse("Twilight", "12/12/21"), Cat("Schnee", 47)]
+const animals: ReadonlyArray<Animal> = [Cat("Feul", 56, 9999), Dog("Tramp", 67), Dog("Dodger", 23), Horse("Twilight", "12/12/21"), Cat("Schnee", 47, 9998)]
 
 const dogs = animals.filter(matchAnimal({
   Dog: () => true,
@@ -50,11 +50,11 @@ const nameOrTitle = matchAnimal({
   Dog: (dog: Dog) => dog.name
 })(oneAnimal)
 
-console.log("Good boys : ", dogs)
-console.log("My only friends : ", cats)
-console.log("Pedant pedestrians : ", horses)
+// console.log("Good boys : ", dogs)
+// console.log("My only friends : ", cats)
+// console.log("Pedant pedestrians : ", horses)
 
-console.log("choosen one : ", nameOrTitle)
+// console.log("choosen one : ", nameOrTitle)
 
 const trueCats = animals.filter(matchAnimal({
   Cat: [
@@ -65,4 +65,13 @@ const trueCats = animals.filter(matchAnimal({
   Horse: () => false
 }))
 
-console.log(trueCats)
+const trueCats2 = matchAnimal(animals[2])({
+  Cat: [
+    matchCase({name: 'feul', cutenessLevel: 9999})((_: Cat) => true),
+    defaultCase((_: Cat) => true)
+  ],
+  Dog: () => false,
+  Horse: () => false
+})
+
+// console.log(trueCats)

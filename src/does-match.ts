@@ -1,10 +1,10 @@
-import { deepEquals, areEquals } from "./deep-equals"
+import { areEquals } from "./deep-equals"
 import { entries } from "./entries"
 import { includes } from "./includes"
 import { Descriptor } from "./descriptors"
 
 export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, value: object): boolean => {
-  
+  console.log("value", value)
   const targetEntries = entries(target as Record<string, unknown>)
   if (targetEntries.length === 0)
     return true
