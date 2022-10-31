@@ -72,13 +72,3 @@ export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
 }
 
 export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([anArray, notInArray]) => anArray.findIndex(element => element === notInArray) === -1)
-
-export const generateValidator = generateFunction(boolean(),{numberOfParameters: 1})
-
-export const generateHandler = generateFunction(anything(),{numberOfParameters: 1})
-
-export const generateCase = tuple(generateValidator, generateHandler)
-
-export const generateHandlerOrArrayOfCases = oneof(generateHandler, array(generateCase))
-
-export const generateMatcher = dictionary(string(), generateHandlerOrArrayOfCases)

@@ -1,7 +1,5 @@
-import { isMatcher } from './isMatcher'
-
 export const separate = (matcherOrMatchOn: any, matchOnOrMatcher: any): [any, any] => {
-  if(isMatcher(matcherOrMatchOn)) {
+  if(!("__type" in matcherOrMatchOn)) {
       return [matcherOrMatchOn, matchOnOrMatcher]
   } else {
       return [matchOnOrMatcher, matcherOrMatchOn]

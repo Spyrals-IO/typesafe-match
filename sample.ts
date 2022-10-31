@@ -50,11 +50,11 @@ const nameOrTitle = matchAnimal({
   Dog: (dog: Dog) => dog.name
 })(oneAnimal)
 
-// console.log("Good boys : ", dogs)
-// console.log("My only friends : ", cats)
-// console.log("Pedant pedestrians : ", horses)
+console.log("Good boys : ", dogs)
+console.log("My only friends : ", cats)
+console.log("Pedant pedestrians : ", horses)
 
-// console.log("choosen one : ", nameOrTitle)
+console.log("choosen one : ", nameOrTitle)
 
 const trueCats = animals.filter(matchAnimal({
   Cat: [
@@ -65,13 +65,15 @@ const trueCats = animals.filter(matchAnimal({
   Horse: () => false
 }))
 
-const trueCats2 = matchAnimal(animals[2])({
+console.log("trueCats", trueCats)
+
+const oldOrNot = matchAnimal(animals[2])({
   Cat: [
-    matchCase({name: 'feul', cutenessLevel: 9999})((_: Cat) => true),
-    defaultCase((_: Cat) => true)
+    matchCase({name: 'feul', cutenessLevel: 9999})((cat: Cat) => cat.age - 1),
+    defaultCase((cat: Cat) => cat.age)
   ],
-  Dog: () => false,
-  Horse: () => false
+  Dog: (dog: Dog) => dog.age,
+  Horse: () => 9999
 })
 
-// console.log(trueCats)
+console.log("oldOrNot", oldOrNot)
