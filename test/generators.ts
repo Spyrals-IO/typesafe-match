@@ -1,4 +1,4 @@
-import { object, nat, tuple, constant, array, anything } from 'fast-check'
+import { object, nat, tuple, constant, array, anything, boolean, oneof, dictionary, string, integer, Arbitrary, constantFrom } from 'fast-check'
 import { deepEquals } from '../src/deep-equals'
 import { entries } from '../src/entries';
 import { includes } from '../src/includes';
@@ -22,6 +22,17 @@ const shuffle = <T>(array: Array<T>): ReadonlyArray<T> => {
   return array;
 }
 
+/**
+ * Can't handle a function as parameter arbitrary
+*/
+const generateFunction = <T>(arb: Arbitrary<T>, options?:{numberOfParameters?: number}) => tuple(
+  options?.numberOfParameters ? constantFrom(options.numberOfParameters) : integer(), 
+  arb
+).map(([paramCount, ret]) => {
+  const paramNames = Array.from(Array(paramCount).keys()).map((paramName) => `param${paramName.toString()}`)
+  const body = `{ return ${JSON.stringify(ret)} }`
+  return new Function(...paramNames, body)
+})
 
 export const valueAndTarget = object().chain(vTest => 
   tuple(nat(Object.keys(vTest).length).map(rand =>
@@ -61,7 +72,3 @@ export const ifObjectDeepEqual = (a: unknown, b: unknown): boolean => {
 }
 
 export const arrayAndNotElement = tuple(array(anything()), anything()).filter(([anArray, notInArray]) => anArray.findIndex(element => element === notInArray) === -1)
-
-export const objectAndArrayValues = tuple(object(), array(anything())).filter(([anObject, arrayValues]) => arrayValues.every(element => values(anObject).findIndex(e => element === e) !== -1))
-
-export const objectAndArrayEntries = tuple(object(), array(array(anything()))).filter(([anObject, arrayEntries]) => arrayEntries.every(element => entries(anObject).findIndex(e => element === e) !== -1))

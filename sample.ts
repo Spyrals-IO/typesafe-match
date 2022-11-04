@@ -26,7 +26,7 @@ const Cat = Constructor<Cat>()
 const Dog = Constructor<Dog>()
 const Horse = Constructor<Horse>()
 
-const animals: ReadonlyArray<Animal> = [Cat("Feul", 56), Dog("Tramp", 67), Dog("Dodger", 23), Horse("Twilight", "12/12/21"), Cat("Schnee", 47)]
+const animals: ReadonlyArray<Animal> = [Cat("Feul", 56, 9999), Dog("Tramp", 67), Dog("Dodger", 23), Horse("Twilight", "12/12/21"), Cat("Schnee", 47, 9998)]
 
 const dogs = animals.filter(matchAnimal({
   Dog: () => true,
@@ -65,4 +65,15 @@ const trueCats = animals.filter(matchAnimal({
   Horse: () => false
 }))
 
-console.log(trueCats)
+console.log("trueCats", trueCats)
+
+const oldOrNot = matchAnimal(animals[2])({
+  Cat: [
+    matchCase({name: 'feul', cutenessLevel: 9999})((cat: Cat) => cat.age - 1),
+    defaultCase((cat: Cat) => cat.age)
+  ],
+  Dog: (dog: Dog) => dog.age,
+  Horse: () => 9999
+})
+
+console.log("oldOrNot", oldOrNot)
