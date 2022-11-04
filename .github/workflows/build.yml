@@ -1,4 +1,4 @@
-name: Builds on Linux, MacOS and Windows
+name: Tests on Linux, MacOS and Windows
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
           - name: Install
             run: npm ci
 
-          - name: Build on os
-            run: npm run compile
+          - name: Testing
+            run: npm test
           
     build-ubuntu:
         runs-on: ubuntu-latest
@@ -40,8 +40,8 @@ jobs:
           - name: Install
             run: npm ci
             
-          - name: Build on os
-            run: npm run compile
+          - name: Testing
+            run: npm test
           
     build-windows:
         runs-on: windows-latest
@@ -57,5 +57,5 @@ jobs:
           - name: Install
             run: npm ci
           
-          - name: Build on os
-            run: npm run compile
+          - name: Testing
+            run: npm test
