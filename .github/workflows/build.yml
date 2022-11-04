@@ -24,7 +24,7 @@ jobs:
             run: npm ci
 
           - name: Build on os
-            run: npm compile
+            run: npm run compile
           
     build-ubuntu:
         runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
             run: npm ci
             
           - name: Build on os
-            run: npm compile
+            run: npm run compile
           
     build-windows:
         runs-on: windows-latest
@@ -58,4 +58,4 @@ jobs:
             run: npm ci
           
           - name: Build on os
-            run: npm compile
+            run: npm run compile
