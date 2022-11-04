@@ -12,33 +12,9 @@ jobs:
     build-macos:
         runs-on: macos-latest
         steps: 
-            - name: Checkout project
-              uses: actions/checkout@v3
-            - name: Build and push
-              uses: Spyrals-IO/action-build-typescript@v.
-              with:
-                pushToBranch: true
-                branch: 'build-macos'
-                githubToken: ${{ secrets.GITHUB_TOKEN }}
     build-ubuntu:
         runs-on: ubuntu-latest
         steps: 
-            - name: Checkout project
-              uses: actions/checkout@v3
-            - name: Build and push
-              uses: Spyrals-IO/action-build-typescript@v.
-              with:
-                pushToBranch: true
-                branch: 'build-ubuntu'
-                githubToken: ${{ secrets.GITHUB_TOKEN }}
     build-windows:
         runs-on: windows-latest
         steps: 
-            - name: Checkout project
-              uses: actions/checkout@v3
-            - name: Build and push
-              uses: Spyrals-IO/action-build-typescript@v.
-              with:
-                pushToBranch: true
-                branch: 'build-windows'
-                githubToken: ${{ secrets.GITHUB_TOKEN }}
