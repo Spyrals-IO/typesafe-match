@@ -1,12 +1,6 @@
 name: Tests on Linux, MacOS and Windows
 
-on:
-  push:
-    branches:
-      - build
-  pull_request:
-    branches:
-      - build
+on: [push, pull_request]
 
 jobs:
     build-macos:
