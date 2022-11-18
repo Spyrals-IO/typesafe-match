@@ -1,6 +1,6 @@
 name: Tests on Linux, MacOS and Windows
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
     build-macos:
