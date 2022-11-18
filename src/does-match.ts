@@ -3,12 +3,18 @@ import { entries } from "./entries"
 import { includes } from "./includes"
 import { Descriptor } from "./descriptors"
 
-export const doesMatch = (target: Record<string, Descriptor<unknown>> | object, value: object): boolean => {
+export const doesMatch = (target: Record<string, Descriptor<unknown> | unknown>, value: object): boolean => {
   const targetEntries = entries(target as Record<string, unknown>)
   if (targetEntries.length === 0)
     return true
 
-  if (targetEntries.map(([targetKey]) => targetKey).filter(targetKey => includes(Object.keys(value), targetKey)).length === 0) //Resolve cases like doesMatch({"":undefined}, {})
+  //Resolve cases like doesMatch({"":undefined}, {})
+  if (
+    targetEntries
+      .map(([targetKey]) => targetKey)
+      .filter(targetKey => includes(Object.keys(value), targetKey))
+      .length === 0
+  )
     return false
 
   const didMatch = targetEntries.every(([key, descriptorOrValue]) => 
