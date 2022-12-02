@@ -8,7 +8,7 @@ export function transformer(program: ts.Program) {
         const [typeNode] = node.typeArguments
         const type = typeChecker.getTypeFromTypeNode(typeNode)
         const properties = type.getApparentProperties().filter(symbol => symbol.name !== "__type")
-        return generateConstructorLambda(properties, type.symbol.name)
+        return generateConstructorLambda(properties, type.symbol.name, ctx.factory)
       }
 
       return ts.visitEachChild(node, visitor, ctx)
@@ -18,21 +18,21 @@ export function transformer(program: ts.Program) {
   }
 }
 
-const generateConstructorLambda = (properties: ts.Symbol[], typeName: string): ts.VisitResult<ts.Node> => {
+const generateConstructorLambda = (properties: ts.Symbol[], typeName: string, factory: ts.NodeFactory): ts.VisitResult<ts.Node> => {
   const affects: ts.ObjectLiteralElementLike[] = properties.map(property => 
-    ts.createShorthandPropertyAssignment(property.name, undefined)
+    factory.createShorthandPropertyAssignment(property.name, undefined)
   )
 
-  affects.push(ts.createPropertyAssignment("__type", ts.createLiteral(typeName)))
-  return ts.createArrowFunction(
+  affects.push(factory.createPropertyAssignment("__type", factory.createStringLiteral(typeName)))
+  return factory.createArrowFunction(
     undefined,
     undefined,
     properties.map(property => {
       const declaration = property.valueDeclaration as ts.VariableDeclaration
-      return ts.createParameter(undefined, undefined, undefined, property.name, undefined, declaration.type, undefined)
+      return factory.createParameterDeclaration(undefined, undefined, property.name, undefined, declaration.type, undefined)
     }),
     undefined,
     undefined,
-    ts.createObjectLiteral(affects)
+    factory.createObjectLiteralExpression(affects)
   )
 }

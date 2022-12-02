@@ -1,0 +1,59 @@
+name: Builds on Linux, MacOS and Windows
+
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+    build-macos:
+        runs-on: macos-latest
+        steps:
+          - name: checkout
+            uses: actions/checkout@v3
+          
+          - name: Setup node
+            uses: actions/setup-node@v3
+            with:
+              node-version: 16.15.x
+              cache: npm
+          - name: Install
+            run: npm ci
+
+          - name: Building
+            run: npm run compile
+          
+    build-ubuntu:
+        runs-on: ubuntu-latest
+        steps: 
+          - name: checkout
+            uses: actions/checkout@v3
+          
+          - name: Setup node
+            uses: actions/setup-node@v3
+            with:
+              node-version: 16.15.x
+              cache: npm
+          - name: Install
+            run: npm ci
+            
+          - name: Building
+            run: npm run compile
+          
+    build-windows:
+        runs-on: windows-latest
+        steps:
+          - name: checkout
+            uses: actions/checkout@v3
+          
+          - name: Setup node
+            uses: actions/setup-node@v3
+            with:
+              node-version: 16.15.x
+              cache: npm
+          - name: Install
+            run: npm ci
+          
+          - name: Building
+            run: npm run compile
