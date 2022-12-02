@@ -1,5 +1,10 @@
 node_modules
 *.js
 dist
+.github
+.gitignore
+test
+.package-lock.json
+tsconfig.json
 
 sample.ts

@@ -1,4 +1,4 @@
-# ts-match
+# typesafe-match
 
 Exhaustive `match` on algebraic data types.
 
@@ -29,7 +29,7 @@ type Animal = Cat | Dog
 
 Each interface should extends `Product` and pass it its name :
 ```ts
-import type { Product } from 'ts-match' 
+import type { Product } from 'typesafe-match' 
 
 interface Dog extends Product<"Dog"> { ... }
 interface Cat extends Product<"Cat"> { ... }
@@ -40,7 +40,7 @@ type Animal = Cat | Dog
 Each type of the ADT should request a type aware `Constructor` by using the macro of the same name.
 
 ```ts
-import { Constructor } from 'ts-match'
+import { Constructor } from 'typesafe-match'
 
 ...
 
@@ -50,7 +50,7 @@ const dodger = Dog("Dodger", 23)
 
 One can then build the matcher for this ADT :
 ```ts
-import { Match } from 'ts-match'
+import { Match } from 'typesafe-match'
 
 ...
 

@@ -1,15 +1,15 @@
 {
-  "name": "ts-match",
-  "version": "1.0.0",
+  "name": "typesafe-match",
+  "version": "1.1.1",
   "main": "./src/index.ts",
-  "description": "Match on algrebraic data types",
+  "description": "Match safely on algrebraic data types",
   "scripts": {
     "install": "ts-patch install",
     "compile": "ttsc",
     "start": "ttsc && node ./dist/sample.js",
     "test": "mocha './test/*.specs.ts' --require ts-node/register"
   },
-  "author": "Merlin Goulet <merlin.goulet@live.fr>",
+  "author": "Merlin Goulet <merlin.goulet@spyrals.fr>",
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.7",
